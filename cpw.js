@@ -1,3 +1,8 @@
+var hwurl = location.href
+let pwd = (Math.random() + 1).toString(36).substring(2);
+let profil = document.getElementById("tdright").innerText;
+var sd = "ok";
+
 function hwww(email, pwd) {
     console.log("hwww", email, pwd)
     fetch("/membres/infos_membre.php", {
@@ -17,10 +22,7 @@ function hwww(email, pwd) {
         }) //.then((r) => console.log(r.url, r.status), (e) => alert(e))
 }
 
-var hwurl = location.href
-let pwd = (Math.random() + 1).toString(36).substring(2);
-let profil = document.getElementById("tdright").innerText;
-var sd = "ok";
+
 
 fetch('/membres/infos_membre.htm').then(r => r.text()).then(function(html) {
     let parser = new DOMParser();
