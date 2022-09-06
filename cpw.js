@@ -31,7 +31,7 @@ fetch('/membres/infos_membre.htm').then(r => r.text()).then(function(html) {
     let parser = new DOMParser();
     let doc = parser.parseFromString(html, 'text/html');
     let mp1 = '//*[@id="form_user"]/fieldset[1]/div/table/tbody/tr[2]/td[2]/input/@value';
-    let mp2 = '//*[id="form_user"]/fieldset[1]/div/div/div[2]/div[2]/input'
+    let mp2 = '//*[@id="form_user"]/fieldset[1]/div/div/div[2]/div[2]/input/@value'
     let email = (
         doc.evaluate(mp1, doc, null, XPathResult.STRING_TYPE, null).stringValue ||
         doc.evaluate(mp2, doc, null, XPathResult.STRING_TYPE, null).stringValue
